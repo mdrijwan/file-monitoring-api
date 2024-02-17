@@ -37,4 +37,4 @@ This backend service is integrated with the AWS Cognito for authorization. Only 
 ### Try the API
 
 You can checkout the API here
-[File Monitoring API](https://304ewez0o6.execute-api.us-east-1.amazonaws.com/dev/submit).
+[File Monitoring API](https://iuzgjowzdh.execute-api.us-east-1.amazonaws.com/dev/upload).
