@@ -1,0 +1,122 @@
+{
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "releaseRules": [
+          {
+            "type": "docs",
+            "release": "patch"
+          },
+          {
+            "type": "refactor",
+            "release": "patch"
+          },
+          {
+            "type": "style",
+            "release": "patch"
+          },
+          {
+            "type": "test",
+            "release": "patch"
+          },
+          {
+            "type": "ci",
+            "release": "patch"
+          },
+          {
+            "type": "build",
+            "release": "patch"
+          }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            {
+              "type": "feat",
+              "section": ":sparkles: Features",
+              "hidden": false
+            },
+            {
+              "type": "fix",
+              "section": ":bug: Bug Fixes",
+              "hidden": false
+            },
+            {
+              "type": "docs",
+              "section": ":memo: Documentation",
+              "hidden": false
+            },
+            {
+              "type": "style",
+              "section": ":barber: Styling",
+              "hidden": false
+            },
+            {
+              "type": "refactor",
+              "section": ":zap: Refactor",
+              "hidden": false
+            },
+            {
+              "type": "perf",
+              "section": ":fast_forward: Performance",
+              "hidden": false
+            },
+            {
+              "type": "test",
+              "section": ":white_check_mark: Tests",
+              "hidden": false
+            },
+            {
+              "type": "ci",
+              "section": ":repeat: CI",
+              "hidden": false
+            },
+            {
+              "type": "build",
+              "section": ":atom: Build",
+              "hidden": false
+            },
+            {
+              "type": "chore",
+              "section": ":dependabot: Build",
+              "hidden": false
+            }
+          ]
+        }
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md",
+        "changelogTitle": "ChangeLogs"
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "@semantic-release/github"
+  ],
+  "branches": [
+    "main",
+    "dev"
+  ]
+}
