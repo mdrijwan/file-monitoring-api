@@ -8,8 +8,6 @@
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "format": "prettier --write --cache 'src/**/*.ts'",
     "code-check": "npm run format && npm run lint:fix",
-    "pretty-quick": "pretty-quick",
-    "postinstall": "husky install",
     "start": "nodemon -e ts --watch \"src/**/*.ts\" --exec \"sls offline start --verbose --noAuth --noTimeout\"",
     "predeploy": "sls deploy --config serverless.data.yml --verbose",
     "deploy": "sls deploy --verbose",
