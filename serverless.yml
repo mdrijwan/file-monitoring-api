@@ -2,7 +2,7 @@ service: ${self:custom.serviceName}-api
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
   region: ${opt:region, 'us-east-1'}
   stage: ${opt:stage, 'dev'}
   timeout: 30
