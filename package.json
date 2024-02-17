@@ -9,9 +9,12 @@
     "format": "prettier --write --cache 'src/**/*.ts'",
     "code-check": "npm run format && npm run lint:fix",
     "pretty-quick": "pretty-quick",
+    "postinstall": "husky install",
     "start": "nodemon -e ts --watch \"src/**/*.ts\" --exec \"sls offline start --verbose --noAuth --noTimeout\"",
     "predeploy": "sls deploy --config serverless.data.yml --verbose",
-    "deploy": "sls deploy --verbose"
+    "deploy": "sls deploy --verbose",
+    "semantic-release": "semantic-release",
+    "commit": "git-cz"
   },
   "keywords": [
     "S3",
@@ -28,6 +31,8 @@
     "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -35,6 +40,7 @@
     "nodemon": "^3.0.3",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0",
+    "semantic-release": "^23.0.2",
     "serverless-offline": "^13.3.3",
     "serverless-plugin-typescript": "^2.1.5",
     "ts-node": "^10.9.2",
@@ -46,5 +52,10 @@
     "@aws-sdk/lib-dynamodb": "^3.515.0",
     "lambda-multipart-parser": "^1.0.1",
     "uuid": "^9.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
