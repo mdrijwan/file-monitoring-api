@@ -1,0 +1,98 @@
+service: ${self:custom.serviceName}-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  apiGateway:
+    binaryMediaTypes:
+      - multipart/form-data
+    description: An API to upload and monitor files to S3 Bucket
+    request:
+      schemas:
+        submit-file-model:
+          name: SubmitFileModel
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+          description: "A model validation for file submission"
+  deploymentBucket:
+    name: ${self:provider.environment.DEPLOY}
+  environment:
+    LIMIT: 50000000
+    SSM: /${self:service}/${opt:stage, self:provider.stage}
+    DEPLOY: mdrijwan-${self:custom.serviceName}-api-${opt:stage, self:provider.stage}
+    UPLOAD: mdrijwan-${self:custom.serviceName}-upload-${opt:stage, self:provider.stage}
+    TABLE: mdrijwan-${self:custom.serviceName}-table-${opt:stage, self:provider.stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource: arn:aws:s3:::${self:provider.environment.UPLOAD}/*
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource: arn:aws:ssm:${self:provider.region}:${self:custom.account}:parameter${self:custom.ssm}
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.TABLE}*'
+
+custom:
+  account: ${aws:accountId}
+  serviceName: file-monitoring
+  cognito: ${self:custom.ssm}/cognito
+  ssm: ${self:provider.environment.SSM}
+
+configValidationMode: warn
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  uploadFile:
+    handler: src/api/upload.uploadFile
+    name: upload-file
+    description: A lambda handler that uploads file to an S3 bucket.
+    memorySize: 1024
+    events:
+      - http:
+          path: upload
+          method: POST
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
+  getFile:
+    handler: src/api/info.getFile
+    name: get-file
+    description: A lambda handler that retrieves uploaded file data from dynamodb.
+    memorySize: 256
+    events:
+      - http:
+          path: upload/{fileId}
+          method: GET
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
+  getUser:
+    handler: src/api/info.getUser
+    name: get-user-info
+    description: A lambda handler that retrieves user data from dynamodb.
+    memorySize: 256
+    events:
+      - http:
+          path: user/{userId}
+          method: GET
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
+
+
