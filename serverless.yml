@@ -77,7 +77,7 @@ functions:
     memorySize: 256
     events:
       - http:
-          path: upload/{fileId}
+          path: file/{fileId}
           method: GET
           cors: true
           authorizer:
