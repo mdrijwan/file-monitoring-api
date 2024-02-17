@@ -24,7 +24,7 @@ provider:
   deploymentBucket:
     name: ${self:provider.environment.DEPLOY}
   environment:
-    LIMIT: 50000000
+    LIMIT: 10000000
     SSM: /${self:service}/${opt:stage, self:provider.stage}
     DEPLOY: mdrijwan-${self:custom.serviceName}-api-${opt:stage, self:provider.stage}
     UPLOAD: mdrijwan-${self:custom.serviceName}-upload-${opt:stage, self:provider.stage}
@@ -84,7 +84,7 @@ functions:
             arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
   getUser:
     handler: src/api/info.getUser
-    name: get-user-info
+    name: get-user
     description: A lambda handler that retrieves user data from dynamodb.
     memorySize: 256
     events:
