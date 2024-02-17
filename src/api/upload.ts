@@ -49,10 +49,11 @@ export const uploadFile = async (event: APIGatewayProxyEvent) => {
 
     const docParam: s3ParamsModel = {
       Bucket: process.env.UPLOAD as string,
-      Key: `images/${userName.replace(/ /g, '-')}/${docFile.fieldname
-        }-${new Date().toISOString().replace('.', '-')}-${docFile.filename
-          .split(' ')
-          .join('-')}`.toLowerCase(),
+      Key: `images/${userName.replace(/ /g, '-')}/${
+        docFile.fieldname
+      }-${new Date().toISOString().replace('.', '-')}-${docFile.filename
+        .split(' ')
+        .join('-')}`.toLowerCase(),
       Body: docFile.content as unknown as string,
       ContentType: docFile.contentType,
     }
