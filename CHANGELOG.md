@@ -1,5 +1,17 @@
 ChangeLogs
 
+## [1.0.3](https://github.com/mdrijwan/file-monitoring-api/compare/v1.0.2...v1.0.3) (2024-02-18)
+
+
+### :memo: Documentation
+
+* updating readme ([ef6dc17](https://github.com/mdrijwan/file-monitoring-api/commit/ef6dc17b824697f1c2b7e3f35223302ca281695e))
+
+
+### :dependabot: Chore
+
+* adding husky for pre commit hook ([58ceb7e](https://github.com/mdrijwan/file-monitoring-api/commit/58ceb7ee7050f77125e9c686d1018fa56aafdd36))
+
 ## [1.0.2](https://github.com/mdrijwan/file-monitoring-api/compare/v1.0.1...v1.0.2) (2024-02-18)
 
 
