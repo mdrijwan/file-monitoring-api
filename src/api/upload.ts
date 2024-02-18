@@ -1,12 +1,7 @@
 import { APIGatewayProxyEvent } from 'aws-lambda'
 import { parse } from 'lambda-multipart-parser'
 import { ErrorType, StatusCode } from '../helpers/enums'
-import {
-  fileInfoModel,
-  s3DataModel,
-  s3ParamsModel,
-  userInfoModel,
-} from '../helpers/model'
+import { fileInfoModel, s3DataModel, s3ParamsModel, userInfoModel } from '../helpers/model'
 import {
   createData,
   formatResponse,
@@ -52,10 +47,7 @@ export const uploadFile = async (event: APIGatewayProxyEvent) => {
 
     const docFile = result.files[0]
 
-    if (
-      measureBinarySize(docFile.content) >
-      parseInt(process.env.FILELIMIT as string)
-    ) {
+    if (measureBinarySize(docFile.content) > parseInt(process.env.FILELIMIT as string)) {
       return formatResponse(StatusCode.OVERLIMIT, ErrorType.FILE)
     }
 

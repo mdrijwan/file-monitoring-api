@@ -1,15 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
-import {
-  HeadObjectCommand,
-  PutObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3'
-import {
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-  QueryCommand,
-} from '@aws-sdk/lib-dynamodb'
+import { HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb'
 import { v4 as uuidv4 } from 'uuid'
 import { units } from './constants'
 import { s3DataModel, s3ParamsModel } from './model'
@@ -110,9 +101,7 @@ export const getUserData = async function (email: string) {
       items,
       totalFiles: items.length,
       totalSize: formatBytes(sum),
-      remainingSpace: formatBytes(
-        sum - parseInt(process.env.SIZELIMIT as string)
-      ),
+      remainingSpace: formatBytes(sum - parseInt(process.env.SIZELIMIT as string)),
     }
   } catch (error) {
     console.log('ERROR', error)
@@ -175,13 +164,10 @@ export const limitCheck = async function (userEmail: string) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userData: any = await getUserData(userEmail)
 
-  const totalBytes =
-    userData.find((item: object) => 'totalBytes' in item)?.totalBytes || 0
+  const totalBytes = userData.find((item: object) => 'totalBytes' in item)?.totalBytes || 0
 
   return totalBytes
 }
 
-export const measureBinarySize = (
-  content: ArrayBuffer | ArrayBufferView
-): number =>
+export const measureBinarySize = (content: ArrayBuffer | ArrayBufferView): number =>
   content instanceof ArrayBuffer ? content.byteLength : content.byteLength
