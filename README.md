@@ -26,6 +26,9 @@ To fix the issues with code linting:
 To check the code linting and fixing it automatically:
 `npm run code-check`
 
+To structure commit messages in semantic way:
+`npm run commit`
+
 ### API Diagram
 
 <img src="/src/resources/api-diagram.png" alt="API Diagram"/>
