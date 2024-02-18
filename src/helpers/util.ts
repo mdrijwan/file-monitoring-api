@@ -97,12 +97,15 @@ export const getUserData = async function (email: string) {
 
     const sum = items.reduce((total, item) => total + item.byteSize, 0)
 
+    const difference = parseInt(process.env.SIZELIMIT as string) - sum
+
     return {
       items,
       totalFiles: items.length,
       totalBytes: sum,
+      remainingBytes: difference,
       totalSize: formatBytes(sum),
-      remainingSpace: formatBytes(parseInt(process.env.SIZELIMIT as string) - sum),
+      remainingSpace: formatBytes(difference),
     }
   } catch (error) {
     console.log('ERROR', error)
@@ -137,6 +140,30 @@ export const s3Upload = async function (params: s3ParamsModel) {
   }
 }
 
+export const limitCheck = async function (userEmail: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const userData: any = await getUserData(userEmail)
+
+  return userData ? userData.totalBytes : 0
+}
+
+export const quantityCheck = async function (userEmail: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const userData: any = await getUserData(userEmail)
+
+  return userData ? userData.totalFiles : 0
+}
+
+export const spaceCheck = async function (userEmail: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const userData: any = await getUserData(userEmail)
+
+  return userData.remainingBytes
+}
+
+export const fileSize = (content: ArrayBuffer | ArrayBufferView): number =>
+  content instanceof ArrayBuffer ? content.byteLength : content.byteLength
+
 async function s3Info(params: s3ParamsModel) {
   const input = {
     Bucket: params.Bucket,
@@ -160,13 +187,3 @@ function formatBytes(bite: any) {
 
   return n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]
 }
-
-export const limitCheck = async function (userEmail: string) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const userData: any = await getUserData(userEmail)
-
-  return userData ? userData.totalBytes : 0
-}
-
-export const measureBinarySize = (content: ArrayBuffer | ArrayBufferView): number =>
-  content instanceof ArrayBuffer ? content.byteLength : content.byteLength
