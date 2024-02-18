@@ -13,9 +13,9 @@ export type userInfoModel = {
 
 export type fileInfoModel = {
   fileName: string
-  fileType: string
+  fileType?: string
   fileSize: string
-  byteSize: number
+  byteSize?: number
   entityTag: string
   fileStatus?: string
   s3Uri: string
