@@ -1,5 +1,33 @@
 ChangeLogs
 
+## [1.2.0](https://github.com/mdrijwan/file-monitoring-api/compare/v1.1.3...v1.2.0) (2024-02-18)
+
+
+### :sparkles: Features
+
+* **api:** adding quantity limit for upload function ([ad65746](https://github.com/mdrijwan/file-monitoring-api/commit/ad657467b49cb41ee854a4c50a3da76d7ddcc37d))
+
+
+### :memo: Documentation
+
+* **readme:** updating constraints logic ([71440f1](https://github.com/mdrijwan/file-monitoring-api/commit/71440f1dd35365d63ebb34e6e0b896fa9a998d1f))
+
+
+### :fast_forward: Performance
+
+* **util:** adding helper functions for api handlers ([4e310ad](https://github.com/mdrijwan/file-monitoring-api/commit/4e310ad73dd42fabdeba8328e1c41fea9ead4eaa))
+
+
+### :atom: Build
+
+* **serverless:** adding additional environmental variable ([ff53745](https://github.com/mdrijwan/file-monitoring-api/commit/ff537459df83f59d87b1542e1b9562d6242543fc))
+
+
+### :dependabot: Chore
+
+* **enums:** adding additional error types ([048751c](https://github.com/mdrijwan/file-monitoring-api/commit/048751c16139ae8e8c6940e79b97c584378395a8))
+* **util:** adding additional functions for helper ([0fe5c60](https://github.com/mdrijwan/file-monitoring-api/commit/0fe5c60994c36f5e535a2631ec7d579f54b7a3a4))
+
 ## [1.1.3](https://github.com/mdrijwan/file-monitoring-api/compare/v1.1.2...v1.1.3) (2024-02-18)
 
 
