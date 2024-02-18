@@ -100,6 +100,7 @@ export const getUserData = async function (email: string) {
     return {
       items,
       totalFiles: items.length,
+      totalBytes: sum,
       totalSize: formatBytes(sum),
       remainingSpace: formatBytes(sum - parseInt(process.env.SIZELIMIT as string)),
     }
@@ -164,9 +165,7 @@ export const limitCheck = async function (userEmail: string) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userData: any = await getUserData(userEmail)
 
-  const totalBytes = userData.find((item: object) => 'totalBytes' in item)?.totalBytes || 0
-
-  return totalBytes
+  return userData ? userData.totalBytes : 0
 }
 
 export const measureBinarySize = (content: ArrayBuffer | ArrayBufferView): number =>
