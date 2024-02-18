@@ -24,6 +24,7 @@ provider:
   deploymentBucket:
     name: ${self:provider.environment.DEPLOY}
   environment:
+    NUMBERLIMIT: 20
     FILELIMIT: 2000000
     SIZELIMIT: 10000000
     SSM: /${self:service}/${opt:stage, self:provider.stage}
