@@ -1,5 +1,27 @@
 ChangeLogs
 
+## [1.1.0](https://github.com/mdrijwan/file-monitoring-api/compare/v1.0.3...v1.1.0) (2024-02-18)
+
+
+### :sparkles: Features
+
+* adding additional attributes for the user info api ([95b57e4](https://github.com/mdrijwan/file-monitoring-api/commit/95b57e48f7ab0f1f4759918c166526d92d9df383))
+
+
+### :memo: Documentation
+
+* **readme:** adding contraints in the documentation ([9360e7d](https://github.com/mdrijwan/file-monitoring-api/commit/9360e7dbe5050140617ca4d17ba3496f27e18617))
+
+
+### :zap: Refactor
+
+* **util:** refactoring utility functions ([bf480e3](https://github.com/mdrijwan/file-monitoring-api/commit/bf480e3190607d1d41245510e1d83f92eae4cc94))
+
+
+### :dependabot: Chore
+
+* adding hooks for pre-commit ([0ebba13](https://github.com/mdrijwan/file-monitoring-api/commit/0ebba13e5c790b50900ca1a1dbe9dcbcbd9f51ea))
+
 ## [1.0.3](https://github.com/mdrijwan/file-monitoring-api/compare/v1.0.2...v1.0.3) (2024-02-18)
 
 
