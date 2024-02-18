@@ -10,17 +10,21 @@ import {
   PutCommand,
   QueryCommand,
 } from '@aws-sdk/lib-dynamodb'
+import { v4 as uuidv4 } from 'uuid'
 import { units } from './constants'
-import { ErrorType } from './enums'
-import { s3ParamsModel } from './model'
+import { s3DataModel, s3ParamsModel } from './model'
 
 const config = { region: process.env.AWS_REGION }
+
 const table = process.env.TABLE
+
 const s3 = new S3Client(config)
+
 const ddbClient = new DynamoDBClient(config)
+
 const docClient = DynamoDBDocumentClient.from(ddbClient)
 
-export const formatResponse = (statusCode: number, response) => ({
+export const formatResponse = (statusCode: number, response: unknown) => ({
   statusCode,
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -30,11 +34,11 @@ export const formatResponse = (statusCode: number, response) => ({
   body: JSON.stringify(response, null, '\t'),
 })
 
-export const createData = async function (item) {
+export const createData = async function (item: s3DataModel) {
   const input = {
     TableName: table,
     Item: {
-      fileId: item.fileId,
+      fileId: uuidv4(),
       userId: item.userId,
       userName: item.userName,
       userEmail: item.userEmail,
@@ -46,18 +50,20 @@ export const createData = async function (item) {
   }
   try {
     const command = new PutCommand(input)
-    const response = await docClient.send(command)
-    console.log('Document created', response)
+
+    await docClient.send(command)
 
     return item
   } catch (error) {
     console.log('ERROR', error)
+
     return error
   }
 }
 
-export const getFileData = async function (fileId, userId) {
+export const getFileData = async function (fileId: string, userId: string) {
   let item
+
   const input = {
     TableName: table,
     Key: {
@@ -67,6 +73,7 @@ export const getFileData = async function (fileId, userId) {
   }
   try {
     const command = new GetCommand(input)
+
     const result = await docClient.send(command)
 
     if (!result.Item) {
@@ -78,11 +85,12 @@ export const getFileData = async function (fileId, userId) {
     return item
   } catch (error) {
     console.log('ERROR', error)
+
     return error
   }
 }
 
-export const getUserData = async function (email) {
+export const getUserData = async function (email: string) {
   const input = {
     TableName: table,
     IndexName: 'File-Monitor-index',
@@ -91,11 +99,14 @@ export const getUserData = async function (email) {
   }
   try {
     const command = new QueryCommand(input)
-    const result = await docClient.send(command)
-    const items = result.Items
-    const sum: number = items.reduce((total, item) => total + item.byteSize, 0)
 
-    items.push({ totalBytes: sum })
+    const result = await docClient.send(command)
+
+    const items = result.Items!
+
+    const sum = items.reduce((total, item) => total + item.byteSize, 0)
+
+    items?.push({ totalBytes: sum })
 
     return result.Items
   } catch (error) {
@@ -107,9 +118,13 @@ export const getUserData = async function (email) {
 export const s3Upload = async function (params: s3ParamsModel) {
   try {
     await s3.send(new PutObjectCommand(params))
+
     const location = `s3://${params.Bucket}/${params.Key}`
+
     const key = params.Key
+
     const response = await s3Info(params)
+
     const size = response.ContentLength
 
     return {
@@ -123,7 +138,7 @@ export const s3Upload = async function (params: s3ParamsModel) {
   } catch (error) {
     console.log('S3 Upload Error', error)
 
-    throw new error(ErrorType.UPLOAD)
+    throw error
   }
 }
 
@@ -133,12 +148,14 @@ async function s3Info(params: s3ParamsModel) {
     Key: params.Key,
   }
   const command = new HeadObjectCommand(input)
+
   const response = await s3.send(command)
 
   return response
 }
 
-function formatBytes(bite) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function formatBytes(bite: any) {
   let l = 0,
     n = parseInt(bite, 10) || 0
 
@@ -149,11 +166,17 @@ function formatBytes(bite) {
   return n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]
 }
 
-export const limitCheck = async function (userEmail) {
-  const userData = await getUserData(userEmail)
+export const limitCheck = async function (userEmail: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const userData: any = await getUserData(userEmail)
 
   const totalBytes =
-    userData.find((item) => 'totalBytes' in item)?.totalBytes || 0
+    userData.find((item: object) => 'totalBytes' in item)?.totalBytes || 0
 
   return totalBytes
 }
+
+export const measureBinarySize = (
+  content: ArrayBuffer | ArrayBufferView
+): number =>
+  content instanceof ArrayBuffer ? content.byteLength : content.byteLength
