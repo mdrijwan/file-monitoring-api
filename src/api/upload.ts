@@ -4,10 +4,12 @@ import { ErrorType, StatusCode } from '../helpers/enums'
 import { fileInfoModel, s3DataModel, s3ParamsModel, userInfoModel } from '../helpers/model'
 import {
   createData,
+  fileSize,
   formatResponse,
   limitCheck,
-  measureBinarySize,
+  quantityCheck,
   s3Upload,
+  spaceCheck,
 } from '../helpers/util'
 
 export const uploadFile = async (event: APIGatewayProxyEvent) => {
@@ -35,20 +37,32 @@ export const uploadFile = async (event: APIGatewayProxyEvent) => {
 
     const sizeLimit = await limitCheck(userEmail)
 
-    if (sizeLimit > parseInt(process.env.SIZELIMIT as string)) {
+    if (sizeLimit >= parseInt(process.env.SIZELIMIT as string)) {
       return formatResponse(StatusCode.OVERLIMIT, ErrorType.SIZE)
+    }
+
+    const quantityLimit = await quantityCheck(userEmail)
+
+    if (quantityLimit >= parseInt(process.env.NUMBERLIMIT as string)) {
+      return formatResponse(StatusCode.FORBIDDEN, ErrorType.NUMBER)
     }
 
     const result = await parse(event)
 
     if (result.files.length > 1) {
-      return formatResponse(StatusCode.FORBIDDEN, ErrorType.UPLOAD)
+      return formatResponse(StatusCode.NOTALLOWED, ErrorType.UPLOAD)
     }
 
     const docFile = result.files[0]
 
-    if (measureBinarySize(docFile.content) > parseInt(process.env.FILELIMIT as string)) {
+    if (fileSize(docFile.content) > parseInt(process.env.FILELIMIT as string)) {
       return formatResponse(StatusCode.OVERLIMIT, ErrorType.FILE)
+    }
+
+    const spaceLimit = await spaceCheck(userEmail)
+
+    if (fileSize(docFile.content) >= spaceLimit) {
+      return formatResponse(StatusCode.OVERLIMIT, ErrorType.SPACE)
     }
 
     if (userName !== undefined) {
