@@ -106,17 +106,11 @@ export const getUserData = async function (email: string) {
 
     const sum = items.reduce((total, item) => total + item.byteSize, 0)
 
-    // const fileNumbers = items.length
-
-    // items?.push({ totalBytes: sum })
-
     return {
       items,
-      totalSize: formatBytes(sum),
       totalFiles: items.length,
-      remainingSpace: formatBytes(
-        sum - parseInt(process.env.SIZELIMIT as string)
-      ),
+      totalSize: formatBytes(sum),
+      remainingSpace: formatBytes(sum - parseInt(process.env.SIZELIMIT as string))
     }
   } catch (error) {
     console.log('ERROR', error)
