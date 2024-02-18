@@ -9,7 +9,7 @@
     "module": "node16",
     "target": "es2022",
 
-    "strict": false,
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
