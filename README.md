@@ -43,5 +43,5 @@ You can checkout the deployed API service here
 >- A user can only upload files after they are authenticated
 >- A user can only upload a single file at once (multiple files uploading is not allowed)
 >- A user can only upload a single file within the file size limit of 2 MB (single file size quota = 2MB)
->- A user can upload files with a total size of 20MB (total files size quota = 20 MB)
+>- A user can upload files with a total size of 10MB (total files size quota = 10 MB)
 >- A user can upload a total of 20 files (total file numbers quota = 20 files)
