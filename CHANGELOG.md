@@ -1,5 +1,12 @@
 ChangeLogs
 
+## [1.2.1](https://github.com/mdrijwan/file-monitoring-api/compare/v1.2.0...v1.2.1) (2024-02-18)
+
+
+### :memo: Documentation
+
+* **readme:** adding semantic commit instruction ([1e78f34](https://github.com/mdrijwan/file-monitoring-api/commit/1e78f34cbdd48272149dd84b354a48e9f87f5520))
+
 ## [1.2.0](https://github.com/mdrijwan/file-monitoring-api/compare/v1.1.3...v1.2.0) (2024-02-18)
 
 
