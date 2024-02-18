@@ -1,5 +1,17 @@
 ChangeLogs
 
+## [1.1.3](https://github.com/mdrijwan/file-monitoring-api/compare/v1.1.2...v1.1.3) (2024-02-18)
+
+
+### :bug: Bug Fixes
+
+* **util:** fixing functionality for limit checking ([fd1f068](https://github.com/mdrijwan/file-monitoring-api/commit/fd1f06813be13140918312ad5ca0ba6acaa69a84))
+
+
+### :dependabot: Chore
+
+* **package:** updating package tree for dependencies ([74fb81f](https://github.com/mdrijwan/file-monitoring-api/commit/74fb81f28ba9767794af9d1162f8d147b2aea328))
+
 ## [1.1.2](https://github.com/mdrijwan/file-monitoring-api/compare/v1.1.1...v1.1.2) (2024-02-18)
 
 
