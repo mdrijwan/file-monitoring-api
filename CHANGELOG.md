@@ -1,5 +1,12 @@
 ChangeLogs
 
+## [1.1.1](https://github.com/mdrijwan/file-monitoring-api/compare/v1.1.0...v1.1.1) (2024-02-18)
+
+
+### :barber: Styling
+
+* **util:** modifying utils with prettier ([4a80942](https://github.com/mdrijwan/file-monitoring-api/commit/4a80942f584fdf3471fc889d7ea753e02d46baac))
+
 ## [1.1.0](https://github.com/mdrijwan/file-monitoring-api/compare/v1.0.3...v1.1.0) (2024-02-18)
 
 
