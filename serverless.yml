@@ -24,7 +24,8 @@ provider:
   deploymentBucket:
     name: ${self:provider.environment.DEPLOY}
   environment:
-    LIMIT: 10000000
+    FILELIMIT: 2000000
+    SIZELIMIT: 10000000
     SSM: /${self:service}/${opt:stage, self:provider.stage}
     DEPLOY: mdrijwan-${self:custom.serviceName}-api-${opt:stage, self:provider.stage}
     UPLOAD: mdrijwan-${self:custom.serviceName}-upload-${opt:stage, self:provider.stage}
