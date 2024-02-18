@@ -1,5 +1,29 @@
 ChangeLogs
 
+## [1.0.1](https://github.com/mdrijwan/file-monitoring-api/compare/v1.0.0...v1.0.1) (2024-02-18)
+
+
+### :bug: Bug Fixes
+
+* altering data models ([f69bd74](https://github.com/mdrijwan/file-monitoring-api/commit/f69bd7420fd8df3bfa8ead91aabab345884e7e31))
+
+
+### :fast_forward: Performance
+
+* adding error types to enums ([9188192](https://github.com/mdrijwan/file-monitoring-api/commit/9188192d6d35909d157527843af77707aa414964))
+
+
+### :atom: Build
+
+* moving limits to environmental variables ([549a845](https://github.com/mdrijwan/file-monitoring-api/commit/549a845d0adcee4ace5041cac2d19b029f04d176))
+
+
+### :dependabot: Chore
+
+* adding uuid to the package ([f289c50](https://github.com/mdrijwan/file-monitoring-api/commit/f289c505104fee99798d2a9a66117e1cf6a72ec4))
+* enabling strict rules for typescript ([be3eb4c](https://github.com/mdrijwan/file-monitoring-api/commit/be3eb4cec79b4f79ed942c9e35e14ca470922184))
+* updating release config ([ddaa272](https://github.com/mdrijwan/file-monitoring-api/commit/ddaa2727072d1fc5da47846d28d221e9e1309f8c))
+
 ## 1.0.0 (2024-02-17)
 
 
