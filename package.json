@@ -33,6 +33,7 @@
     "@tsconfig/node20": "^20.1.2",
     "@types/aws-lambda": "^8.10.133",
     "@types/node": "^20.11.19",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "commitizen": "^4.3.0",
