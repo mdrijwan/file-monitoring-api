@@ -32,9 +32,9 @@ To check the code linting and fixing it automatically:
 
 ### App Integratioon
 
-This backend service is integrated with the AWS Cognito for authorization. Only authenticated users can access the API.
+This backend service is integrated with the AWS Cognito for authorization. Only authenticated users can access the API. You can use the [User Onboarding API](https://github.com/mdrijwan/user-onboarding-api) to login and use the JWT token to invoke this service.
 
 ### Try the API
 
-You can checkout the API here
+You can checkout the deployed API service here
 [File Monitoring API](https://iuzgjowzdh.execute-api.us-east-1.amazonaws.com/dev/upload).
