@@ -5,6 +5,7 @@ import { fileInfoModel, s3DataModel, s3ParamsModel, userInfoModel } from '../hel
 import {
   createData,
   fileSize,
+  folderName,
   formatResponse,
   limitCheck,
   quantityCheck,
@@ -14,7 +15,6 @@ import {
 
 export const uploadFile = async (event: APIGatewayProxyEvent) => {
   try {
-    let folder: string = ''
     let userId, userName, userEmail
 
     if (event.requestContext.authorizer) {
@@ -31,8 +31,8 @@ export const uploadFile = async (event: APIGatewayProxyEvent) => {
         : event.requestContext.authorizer.claims.email
     }
 
-    if (userEmail === undefined) {
-      return formatResponse(StatusCode.ERROR, ErrorType.AUTH)
+    if (userName === undefined || userEmail === undefined) {
+      return formatResponse(StatusCode.UNAUTHORIZED, ErrorType.AUTH)
     }
 
     const sizeLimit = await limitCheck(userEmail)
@@ -65,13 +65,9 @@ export const uploadFile = async (event: APIGatewayProxyEvent) => {
       return formatResponse(StatusCode.OVERLIMIT, ErrorType.SPACE)
     }
 
-    if (userName !== undefined) {
-      folder = userName.replace(/ /g, '-')
-    }
-
     const docParam: s3ParamsModel = {
       Bucket: process.env.UPLOAD as string,
-      Key: `images/${folder}/${
+      Key: `images/${folderName(userName)}/${
         docFile.fieldname
       }-${new Date().toISOString().replace('.', '-')}-${docFile.filename
         .split(' ')
@@ -103,7 +99,7 @@ export const uploadFile = async (event: APIGatewayProxyEvent) => {
         ...fileInfo,
       }
 
-      const inputData = await createData(item)
+      const inputData = await createData(item, docParam)
 
       if (!inputData) {
         return formatResponse(StatusCode.ERROR, ErrorType.DATA)
