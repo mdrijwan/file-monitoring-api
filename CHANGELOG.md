@@ -1,5 +1,22 @@
 ChangeLogs
 
+## [1.2.2](https://github.com/mdrijwan/file-monitoring-api/compare/v1.2.1...v1.2.2) (2024-02-24)
+
+
+### :zap: Refactor
+
+* **api:** moving folder naming to helper ([5b55aa0](https://github.com/mdrijwan/file-monitoring-api/commit/5b55aa0e67e7a200cdbff73aa40a053520c2a0e9))
+
+
+### :fast_forward: Performance
+
+* **util:** activating failed file deletion in the event of data creation failure ([9a1c8a5](https://github.com/mdrijwan/file-monitoring-api/commit/9a1c8a5b6716a26988b262988bb6c5aa4a8b8540))
+
+
+### :dependabot: Chore
+
+* **enum:** adding additiona error types ([bfd53d1](https://github.com/mdrijwan/file-monitoring-api/commit/bfd53d12677806868f332cc2297b37d3872e6388))
+
 ## [1.2.1](https://github.com/mdrijwan/file-monitoring-api/compare/v1.2.0...v1.2.1) (2024-02-18)
 
 
