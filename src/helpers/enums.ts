@@ -1,6 +1,7 @@
 export enum StatusCode {
   SUCCESS = 200,
   ERROR = 500,
+  UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   NOTALLOWED = 405,
   OVERLIMIT = 413,
