@@ -1,5 +1,10 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
-import { HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import {
+  DeleteObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3'
 import { DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb'
 import { v4 as uuidv4 } from 'uuid'
 import { units } from './constants'
@@ -25,7 +30,7 @@ export const formatResponse = (statusCode: number, response: unknown) => ({
   body: JSON.stringify(response, null, '\t'),
 })
 
-export const createData = async function (item: s3DataModel) {
+export const createData = async function (item: s3DataModel, params: s3ParamsModel) {
   const input = {
     TableName: table,
     Item: {
@@ -46,9 +51,10 @@ export const createData = async function (item: s3DataModel) {
 
     return item
   } catch (error) {
-    console.log('ERROR', error)
+    console.error('ERROR', error)
+    await s3Delete(params)
 
-    return error
+    return undefined
   }
 }
 
@@ -140,6 +146,15 @@ export const s3Upload = async function (params: s3ParamsModel) {
   }
 }
 
+async function s3Delete(params: s3ParamsModel) {
+  try {
+    console.info('Deleting file from S3')
+    await s3.send(new DeleteObjectCommand(params))
+  } catch (err) {
+    console.error('ERROR: ' + err)
+  }
+}
+
 export const limitCheck = async function (userEmail: string) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userData: any = await getUserData(userEmail)
@@ -160,6 +175,8 @@ export const spaceCheck = async function (userEmail: string) {
 
   return userData.remainingBytes
 }
+
+export const folderName = (userName: string) => userName.replace(/ /g, '-')
 
 export const fileSize = (content: ArrayBuffer | ArrayBufferView): number =>
   content instanceof ArrayBuffer ? content.byteLength : content.byteLength
