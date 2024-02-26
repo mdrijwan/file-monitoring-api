@@ -40,7 +40,7 @@ This backend service is integrated with the AWS Cognito for authorization. Only 
 ### Try the API
 
 You can checkout the deployed API service here
-[File Monitoring API](https://iuzgjowzdh.execute-api.us-east-1.amazonaws.com/dev/upload).
+[File Monitoring API](https://api.mdrijwan.click/file-monitoring).
 
 #### Constraints
 >- A user can only upload files after they are authenticated
